@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: d455f57db73ad904b969458a2e85f5fb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - tile_Material_Base: {fileID: 2100000, guid: 8e25d8e7331957f43b518ff2a7cbf19d,
+      type: 2}
+  - tile_Material_Hover: {fileID: 2100000, guid: 288a3c0efc4c92d43bd545e12a0d18a0,
+      type: 2}
+  - tile_Material_Selected: {fileID: 2100000, guid: 8e25d8e7331957f43b518ff2a7cbf19d,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
