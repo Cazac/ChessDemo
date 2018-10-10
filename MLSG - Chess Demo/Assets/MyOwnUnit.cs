@@ -1,31 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MyOwnUnit : MonoBehaviour {
 
-    //Declare a prefab refference to be made in Unity
-
-    public MyOwnTile unit_Position;
-
-
+    //Mat Declartaion
     Material originalMaterial_Mat;
-
-    //Material black_Mat;
     Material blackLight_Mat;
-    //Material grey_Mat;
     Material greyLight_Mat;
 
-    int Movement;
+    //Text GameObject Declartaion
+    GameObject tile_Text;
+
+    //Script GameObject Declartaion + Script Class
+    GameObject scripting_GameObject;
+    MyOwn main_Script;
+
+    //Position Ints
+    public int x = 0;
+    public int y = 0;
+
+    //Attributes
     public bool IsWhite;
-    int Turn_Num = 0;
-
-
-
-
     public bool unit_Selected = false;
 
-
+    ////////////////////////////////////////////////////
 
 
     void Start()
@@ -33,12 +33,16 @@ public class MyOwnUnit : MonoBehaviour {
         //Fetch the Material from the Renderer of the GameObject
         originalMaterial_Mat = GetComponent<Renderer>().material;
 
-        //black_Mat = Resources.Load("Black", typeof(Material)) as Material;
+        //Grab the highlighted versions of each Mat
         blackLight_Mat = Resources.Load("BlackLight", typeof(Material)) as Material;
-
-        //grey_Mat = Resources.Load("Grey", typeof(Material)) as Material;
         greyLight_Mat = Resources.Load("GreyLight", typeof(Material)) as Material;
 
+        //Map the GameObject to refference the UI text 
+        tile_Text = GameObject.Find("TileSelectedText");
+
+        //Map the GameObject to refference the Main Script 
+        scripting_GameObject = GameObject.Find("Scripting");
+        main_Script = scripting_GameObject.GetComponent<MyOwn>();
     }
 
     void Update()
@@ -48,25 +52,25 @@ public class MyOwnUnit : MonoBehaviour {
 
     void OnMouseOver()
     {
-        //if has a unit no go
-
-
         //Change the Color of the GameObject when the mouse hovers over it
         GetComponent<Renderer>().material = greyLight_Mat;
+
+        //Set tile text to mouse over cords
+        tile_Text.GetComponent<Text>().text = "Tile: " + x + " " + y;
     }
 
     void OnMouseExit()
     {
-        //Change the Color back when the mouse exits the GameObject
+        //Change the Color back when the mouse exits the GameObject but only if its not selected
         if (unit_Selected == false)
         {
             GetComponent<Renderer>().material = originalMaterial_Mat;
         }
     }
 
-
     void OnMouseDown()
     {
+        //if the unit is selected already remove glow Mat if not apply it
         if (unit_Selected == false)
         {
             unit_Selected = true;
@@ -79,18 +83,5 @@ public class MyOwnUnit : MonoBehaviour {
 
             GetComponent<Renderer>().material = originalMaterial_Mat;
         }
-       
-
-
-        //if ((Turn_Num % 2) == 0)
-        //{
-
-        //}
-
-
-        //if has a unit no go
-        //MyOwn.get
-
-        
     }
 }

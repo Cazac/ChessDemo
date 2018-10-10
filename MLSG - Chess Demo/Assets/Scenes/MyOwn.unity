@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 44783712}
   - component: {fileID: 44783711}
   m_Layer: 5
-  m_Name: 'UnitText '
+  m_Name: TileSelectedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Unit: N/A'
+  m_Text: 'Tile: N/A'
 --- !u!222 &44783712
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1091,11 +1091,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile_Prefab: {fileID: 1066222356764416, guid: f6aa27dae3ed6014bbcca422b3e103a8,
     type: 2}
-  whiteUnit_prefab: {fileID: 1556497120212256, guid: 16876f0ac4b548e43a1fdb84f0d087ac,
+  whiteUnit_Prefab: {fileID: 1556497120212256, guid: 16876f0ac4b548e43a1fdb84f0d087ac,
     type: 2}
-  blackUnit_prefab: {fileID: 1141178163110962, guid: ec5a5b697d38dbf4480c2f4e9c57dfb7,
+  blackUnit_Prefab: {fileID: 1141178163110962, guid: ec5a5b697d38dbf4480c2f4e9c57dfb7,
     type: 2}
-  Turn_Num: 0
+  selected_Unit: {fileID: 0}
+  turnCounter: 0
 --- !u!4 &1618635486
 Transform:
   m_ObjectHideFlags: 0
