@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MyOwn : MonoBehaviour {
 
@@ -12,15 +13,15 @@ public class MyOwn : MonoBehaviour {
 
     private MyOwnUnit unit_Selected;
 
-
+    public int Turn_Num;
 
 
 
 
     //Uses X , Y coords to locate tile in array
     public MyOwnTile[,] tile_Array = new MyOwnTile[8, 8];
+    public MyOwnUnit[,] unit_Array = new MyOwnUnit[8, 8];
 
-  
 
     public void CreateCells()
     {
@@ -62,8 +63,9 @@ public class MyOwn : MonoBehaviour {
 
         tile_GameObject.AddComponent<MyOwnTile>();
 
+        //Sets the name of GameObject One.
+        tile_GameObject.name = "Tile X: " + x + " / Y: " + y;
 
-            
 
         float smoolX = x * 0.1f;
         float smoolY = y * 0.1f;
@@ -71,9 +73,12 @@ public class MyOwn : MonoBehaviour {
 
         tile_GameObject.transform.position = tile_XY;
 
-      
-        MyOwnTile tile;
+
+        //MyOwnTile tile = tile_GameObject.GetComponent<MyOwnTile>();
+        //MyOwnTile tile2 = new MyOwnTile();
+
         //tile_Array[x, y] = tile;
+        //tile_Array[x, y] = tile2;
     }
 
     public void GenerateUnit(int x, int y, bool color)
@@ -90,6 +95,7 @@ public class MyOwn : MonoBehaviour {
             unit_GameObject = Instantiate(blackUnit_prefab) as GameObject;
         }
 
+        //Add Script to GameObject
         unit_GameObject.AddComponent<MyOwnUnit>();
 
         float smoolX = x * 0.1f;
@@ -97,15 +103,29 @@ public class MyOwn : MonoBehaviour {
 
         Vector3 unit_XY = new Vector3(smoolX, 0.025f, smoolY);
 
+        MyOwnTile tile_UnitIsStandingOn;
+        tile_UnitIsStandingOn = tile_Array[x, y];
+
+
+
+        //tile_UnitIsStandingOn.unit_InCell.IsWhite = color;
+
         unit_GameObject.transform.position = unit_XY;
     }
 
 
+    public void MoveUnit(int startX, int startY, Unit test, int endX, int endY)
+    {
+       // GameObject unit_moving = 
 
 
 
 
+    }
 
+
+
+    
 
 
 
@@ -113,10 +133,20 @@ public class MyOwn : MonoBehaviour {
     {
         CreateCells();
         CreateUnits();
+
+        Turn_Num = 0;
     }
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update ()
+    {
+
+
+        GameObject thePlayer = GameObject.Find("Tile X: 0 / Y: 0");
+        MyOwnTile tileScript = thePlayer.GetComponent<MyOwnTile>();
+
+        tileScript.tile_selected_1 = 0;
+
+
+    }
 }
