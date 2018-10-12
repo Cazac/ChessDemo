@@ -18,6 +18,11 @@ public class MyOwnUnit : MonoBehaviour {
     MyOwn main_Script;
     MyOwnUnit mainUnit_Selected;
 
+    public AudioSource unit_AudioSource;
+    public AudioClip emptyTile_SFX;
+    public AudioClip CaptureUnit_SFX;
+    public AudioClip SameUnit_SFX;
+
     //Units have Tiles
     public MyOwnTile Unit_tiled;
 
@@ -29,8 +34,7 @@ public class MyOwnUnit : MonoBehaviour {
     public bool IsWhite;
     public bool unit_Selected = false;
 
-    ////////////////////////////////////////////////////
-
+    /////////////////////////////////////////////////////////////////////////////
 
     void Start()
     {
@@ -47,6 +51,11 @@ public class MyOwnUnit : MonoBehaviour {
         //Map the GameObject to refference the Main Script 
         scripting_GameObject = GameObject.Find("Scripting");
         main_Script = scripting_GameObject.GetComponent<MyOwn>();
+
+        unit_AudioSource = GetComponent<AudioSource>();
+        emptyTile_SFX = Resources.Load("Empty", typeof(AudioClip)) as AudioClip;
+        CaptureUnit_SFX = Resources.Load("Capture", typeof(AudioClip)) as AudioClip;
+        SameUnit_SFX = Resources.Load("Same", typeof(AudioClip)) as AudioClip;
     }
 
     void Update()
@@ -54,22 +63,27 @@ public class MyOwnUnit : MonoBehaviour {
 
     }
 
+    /////////////////////////////////////////////////////////////////////////////
+
     void OnMouseOver()
     {
-        if (IsWhite == true)
+        if (IsPlayersTurn() == true)
         {
-            //Change the Color of the GameObject when the mouse hovers over it
-            GetComponent<Renderer>().material = greyLight_Mat;            
-        }
-        else
-        {
-            //Change the Color of the GameObject when the mouse hovers over it
-            GetComponent<Renderer>().material = blackLight_Mat;
-        }
+            if (IsWhite == true)
+            {
+                //Change the Color of the GameObject when the mouse hovers over it
+                GetComponent<Renderer>().material = greyLight_Mat;
+            }
+            else
+            {
+                //Change the Color of the GameObject when the mouse hovers over it
+                GetComponent<Renderer>().material = blackLight_Mat;
+            }
 
 
-        //Set tile text to mouse over cords
-        tile_Text.GetComponent<Text>().text = "Tile: " + x + " " + y;
+            //Set tile text to mouse over cords
+            tile_Text.GetComponent<Text>().text = "Tile: " + x + " " + y;
+        }
     }
 
     void OnMouseExit()
@@ -83,61 +97,81 @@ public class MyOwnUnit : MonoBehaviour {
 
     void OnMouseDown()
     {
-        //Grab Selected Unit From Main Script
-        mainUnit_Selected = main_Script.mainUnit_Selected;
-
-
-        //if Main Script does not have a Unit already
-        if (mainUnit_Selected == null) 
+        if (IsPlayersTurn() == true)
         {
-            //if the unit is selected already remove glow Mat if not apply it
-            if (unit_Selected == false) 
+            //Grab Selected Unit From Main Script
+            mainUnit_Selected = main_Script.mainUnit_Selected;
+
+            unit_AudioSource.PlayOneShot(emptyTile_SFX);
+
+            //if Main Script does not have a Unit already
+            if (mainUnit_Selected == null)
             {
-                SelectUnit();
+                //if the unit is selected already remove glow Mat if not apply it
+                if (unit_Selected == false)
+                {
+                    SelectUnit();
+                }
+                else
+                {
+                    UnselectUnit();
+                }
+            }
+            else //if Main Script has a Unit already
+            {
+                if (mainUnit_Selected == this)
+                {
+                    //Unselect its own Unit
+                    UnselectUnit();
+                }
+                else
+                {
+                    //Remove the prevouis other Unit Selection
+                    mainUnit_Selected.UnselectUnit();
+
+                    //Set this Unit
+                    SelectUnit();
+                }
+            }
+        }   
+    }
+
+    public bool IsPlayersTurn()
+    {
+        bool PlayersTurn;
+
+        if (this.IsWhite == true)
+        {
+            if (main_Script.IsWhiteTurn == true)
+            {
+                PlayersTurn = true;
             }
             else
             {
-                UnselectUnit();
+                PlayersTurn = false;
             }
-        }
-        else //if Main Script has a Unit already
-        {
-            if (mainUnit_Selected == this)
-            {
-                //Unselect its own Unit
-                UnselectUnit();
-            }
-            else
-            {
-                //Remove the prevouis other Unit Selection
-                mainUnit_Selected.UnselectUnit();
-
-                //Set this Unit
-                SelectUnit();
-            }
-        }
-
-
-        //Change UI
-        if (mainUnit_Selected == null)
-        {
-            //Nothing Selected
         }
         else
         {
-            //mainUnit_Selected.IsWhite
+            if (main_Script.IsBlackTurn == true)
+            {
+                PlayersTurn = true;
+            }
+            else
+            {
+                PlayersTurn = false;
+            }
         }
+        
+        return PlayersTurn;
+    }
 
-
-
-        }
-
+    /////////////////////////////////////////////////////////////////////////////
 
     public void DestoryMe()
     {
         Destroy(gameObject);
     }
-
 
     public void SelectUnit()
     {
@@ -157,8 +191,4 @@ public class MyOwnUnit : MonoBehaviour {
         GetComponent<Renderer>().material = originalMaterial_Mat;
     }
 
-    void DestroyUnit()
-    {
-        Destroy(gameObject);
-    }
 }

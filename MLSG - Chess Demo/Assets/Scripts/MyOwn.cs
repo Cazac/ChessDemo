@@ -16,12 +16,22 @@ public class MyOwn : MonoBehaviour {
     //Text GameObject Declartaion
     GameObject turnNumber_Text;
     GameObject turnPlayer_Text;
-    GameObject tileSelected_Text;
-    GameObject unitInfo_Text;
     GameObject canvas;
+
+
+    public AudioClip Ambient_SFX;
+    public AudioClip emptyTile_SFX;
+    public AudioClip CaptureUnit_SFX;
+    public AudioClip SameUnit_SFX;
+
+    AudioSource main_AudioSource;
+    float volume = 1f;
+    
 
     //Vector3 used to center Text
     Vector3 center_V3;
+
+    public bool animationPlaying = false;
 
     //Selected Unit used to find out what to move / select / unselect
     public MyOwnUnit mainUnit_Selected;
@@ -29,6 +39,8 @@ public class MyOwn : MonoBehaviour {
 
     //count the turns taken in a match
     public int turnCounter = 0;
+    public bool IsWhiteTurn = false;
+    public bool IsBlackTurn = false;
 
     //Unit and Tile arrays - Uses X , Y coords to locate object
     public GameObject[,] tileGO_Array = new GameObject[8, 8];
@@ -52,11 +64,12 @@ public class MyOwn : MonoBehaviour {
         //Map the GameObject to refference the UI text 
         turnNumber_Text = GameObject.Find("TurnNumberText");
         turnPlayer_Text = GameObject.Find("TurnPlayerText");
-        tileSelected_Text = GameObject.Find("TileSelectedText");
-        unitInfo_Text = GameObject.Find("UnitInfoText");
         canvas = GameObject.Find("Canvas");
 
-        
+        main_AudioSource = GetComponent<AudioSource>();
+        main_AudioSource.PlayOneShot(emptyTile_SFX, volume);
+
+        //source.Play(Ambient_SFX);
 
         //Set UI Text
         turnNumber_Text.GetComponent<Text>().text = "Turn: " + turnCounter;
@@ -235,7 +248,7 @@ public class MyOwn : MonoBehaviour {
         {
             if (end_Tile.tiled_Unit.IsWhite == mainUnit_Selected.IsWhite)
             {
-                print("Same Color");
+                main_AudioSource.PlayOneShot(SameUnit_SFX);
                 return;
             }
         }
@@ -247,7 +260,12 @@ public class MyOwn : MonoBehaviour {
         //A Unit is already in this position!
         if (end_Tile.tiled_Unit != null)
         {
+            main_AudioSource.PlayOneShot(CaptureUnit_SFX);
             CheckCollisionEnemy(end_Tile);
+        }
+        else
+        {
+            main_AudioSource.PlayOneShot(emptyTile_SFX);
         }
 
         //Get the Starting Tile and Remove the Unit refference
@@ -282,16 +300,24 @@ public class MyOwn : MonoBehaviour {
         UIUpdate_Destroy(IsWhite);
     }
 
-    public void MoveCamera()
-    {
-
-    }
-
     /////////////////////////////////////////////////////////////////////////////
 
     public void UIUpdate_Turn()
     {
         turnNumber_Text.GetComponent<Text>().text = "Turn: " + turnCounter;
+    }
+
+    public void UIUpdate_Player()
+    {
+        if (IsWhiteTurn == true)
+        {
+            turnPlayer_Text.GetComponent<Text>().text = "Player: White";
+        }
+        else
+        {
+            turnPlayer_Text.GetComponent<Text>().text = "Player: Black";
+        }
+        
     }
 
     public void UIUpdate_Destroy(bool IsWhite)
@@ -301,14 +327,14 @@ public class MyOwn : MonoBehaviour {
         if (IsWhite == true)
         {
             color_Text = "A White Unit was destroyed";
-            //Map Vector3 to higher
-            center_V3 = new Vector3(0, -280, 0);
+            //Map Vector3 to higher text placement
+            center_V3 = new Vector3(0, -300, 0);
         }
         else
         {
             color_Text = "A Black Unit was destroyed";
-            //Map Vector3 to lower
-            center_V3 = new Vector3(0, -260, 0);
+            //Map Vector3 to lower text placement
+            center_V3 = new Vector3(0, -280, 0);
         }
 
         GameObject destruction_Text = Instantiate(destructionText_Prefab) as GameObject;
@@ -319,5 +345,4 @@ public class MyOwn : MonoBehaviour {
         destruction_Text.GetComponent<Text>().text = color_Text;
         Destroy(destruction_Text, 3);
     }
-
 }
