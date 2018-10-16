@@ -24,14 +24,7 @@ public class MyOwnTile : MonoBehaviour {
     public int x = 0;
     public int y = 0;
 
-    public AudioSource tile_AudioSource;
-    public AudioClip emptyTile_SFX;
-    public AudioClip CaptureUnit_SFX;
-    public AudioClip SameUnit_SFX;
-
-    ////////////////////////////////////////////
-
-
+    /////////////////////////////////////////////////////////////////////////////
 
     void Start()
     {
@@ -45,11 +38,6 @@ public class MyOwnTile : MonoBehaviour {
         //Map the GameObject to refference the Main Script 
         scripting_GameObject = GameObject.Find("Scripting");
         main_Script = scripting_GameObject.GetComponent<MyOwn>();
-
-        tile_AudioSource = GetComponent<AudioSource>();
-        emptyTile_SFX = Resources.Load("Empty", typeof(AudioClip)) as AudioClip;
-        CaptureUnit_SFX = Resources.Load("Capture", typeof(AudioClip)) as AudioClip;
-        SameUnit_SFX = Resources.Load("Same", typeof(AudioClip)) as AudioClip;
     }
 
     void OnMouseDown()

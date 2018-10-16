@@ -18,10 +18,11 @@ public class MyOwnUnit : MonoBehaviour {
     MyOwn main_Script;
     MyOwnUnit mainUnit_Selected;
 
+    //GameObejct Audio Source
     public AudioSource unit_AudioSource;
+
+    //Audio file for empty tile
     public AudioClip emptyTile_SFX;
-    public AudioClip CaptureUnit_SFX;
-    public AudioClip SameUnit_SFX;
 
     //Units have Tiles
     public MyOwnTile Unit_tiled;
@@ -52,15 +53,9 @@ public class MyOwnUnit : MonoBehaviour {
         scripting_GameObject = GameObject.Find("Scripting");
         main_Script = scripting_GameObject.GetComponent<MyOwn>();
 
+        //Find SFX Audio by Resources folder
         unit_AudioSource = GetComponent<AudioSource>();
         emptyTile_SFX = Resources.Load("Empty", typeof(AudioClip)) as AudioClip;
-        CaptureUnit_SFX = Resources.Load("Capture", typeof(AudioClip)) as AudioClip;
-        SameUnit_SFX = Resources.Load("Same", typeof(AudioClip)) as AudioClip;
-    }
-
-    void Update()
-    {
-
     }
 
     /////////////////////////////////////////////////////////////////////////////
@@ -80,7 +75,6 @@ public class MyOwnUnit : MonoBehaviour {
                 GetComponent<Renderer>().material = blackLight_Mat;
             }
 
-
             //Set tile text to mouse over cords
             tile_Text.GetComponent<Text>().text = "Tile: " + x + " " + y;
         }
@@ -91,6 +85,7 @@ public class MyOwnUnit : MonoBehaviour {
         //Change the Color back when the mouse exits the GameObject but only if its not selected
         if (unit_Selected == false)
         {
+            //Set Orginal Mat
             GetComponent<Renderer>().material = originalMaterial_Mat;
         }
     }
@@ -102,6 +97,7 @@ public class MyOwnUnit : MonoBehaviour {
             //Grab Selected Unit From Main Script
             mainUnit_Selected = main_Script.mainUnit_Selected;
 
+            //Play SFX on GameObject
             unit_AudioSource.PlayOneShot(emptyTile_SFX);
 
             //if Main Script does not have a Unit already
@@ -140,6 +136,7 @@ public class MyOwnUnit : MonoBehaviour {
     {
         bool PlayersTurn;
 
+        //Checks if it is the players turn and the units can be moved
         if (this.IsWhite == true)
         {
             if (main_Script.IsWhiteTurn == true)
@@ -170,6 +167,7 @@ public class MyOwnUnit : MonoBehaviour {
 
     public void DestoryMe()
     {
+        //Deletes the Gameobject
         Destroy(gameObject);
     }
 

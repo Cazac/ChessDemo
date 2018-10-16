@@ -3094,11 +3094,10 @@ MonoBehaviour:
     type: 2}
   destructionText_Prefab: {fileID: 1526594413290310, guid: 13241e9c2bc136b43ba0feed27fcde6c,
     type: 2}
-  Ambient_SFX: {fileID: 0}
+  Ambient_SFX: {fileID: 8300000, guid: e6a608b944104e34db6dca8bbe90a50f, type: 3}
   emptyTile_SFX: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
   CaptureUnit_SFX: {fileID: 8300000, guid: b43d102aac6b145468dcaa94a5cccae1, type: 3}
   SameUnit_SFX: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
-  animationPlaying: 0
   mainUnit_Selected: {fileID: 0}
   mainUnitSelected_GO: {fileID: 0}
   turnCounter: 0

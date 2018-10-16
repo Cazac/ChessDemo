@@ -19,6 +19,8 @@ public class MyOwnEnd : MonoBehaviour {
 
     float cameraRotationTime;
 
+    /////////////////////////////////////////////////////////////////////////////
+
     void Start()
     {
         //Map the GameObject to refference the Main Script 
