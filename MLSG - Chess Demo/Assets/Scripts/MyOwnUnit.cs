@@ -132,6 +132,8 @@ public class MyOwnUnit : MonoBehaviour {
         }   
     }
 
+    /////////////////////////////////////////////////////////////////////////////
+
     public bool IsPlayersTurn()
     {
         bool PlayersTurn;
@@ -159,11 +161,9 @@ public class MyOwnUnit : MonoBehaviour {
                 PlayersTurn = false;
             }
         }
-        
+
         return PlayersTurn;
     }
-
-    /////////////////////////////////////////////////////////////////////////////
 
     public void DestoryMe()
     {
@@ -177,6 +177,42 @@ public class MyOwnUnit : MonoBehaviour {
         main_Script.mainUnit_Selected = this;
         main_Script.mainUnitSelected_GO = gameObject;
 
+
+
+        //calc range
+        int XXX = main_Script.mainUnit_Selected.x;
+        int YYY = main_Script.mainUnit_Selected.y;
+
+        if ( (0 >= XXX + 1) && (main_Script.tileGO_Array.GetLength(0) >= XXX + 1) ) 
+        {
+            GameObject one = main_Script.tileGO_Array[XXX + 1, YYY];
+            MyOwnTile oneone = one.GetComponent<MyOwnTile>();
+            oneone.Highlight();
+        }
+
+        if ( (0 >= XXX - 1) && (main_Script.tileGO_Array.GetLength(0) >= XXX - 1) ) 
+        {
+            GameObject two = main_Script.tileGO_Array[XXX - 1, YYY];
+            MyOwnTile twotwo = two.GetComponent<MyOwnTile>();
+            twotwo.Highlight();
+        }
+
+        if ( (0 >= YYY + 1) && (main_Script.tileGO_Array.GetLength(1) >= YYY + 1) )
+        {
+            GameObject three = main_Script.tileGO_Array[XXX, YYY + 1];
+            MyOwnTile threethree = three.GetComponent<MyOwnTile>();
+            threethree.Highlight();
+        }
+        
+        if ( (0 >= YYY - 1) && (main_Script.tileGO_Array.GetLength(1) >= YYY - 1) )
+        {
+            GameObject four = main_Script.tileGO_Array[XXX, YYY - 1];
+            MyOwnTile fourfour = four.GetComponent<MyOwnTile>();
+            fourfour.Highlight();
+        }
+
+        //display range
+
         GetComponent<Renderer>().material = greyLight_Mat;
     }
 
@@ -188,5 +224,7 @@ public class MyOwnUnit : MonoBehaviour {
 
         GetComponent<Renderer>().material = originalMaterial_Mat;
     }
+
+   
 
 }

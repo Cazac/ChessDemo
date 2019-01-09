@@ -65,4 +65,10 @@ public class MyOwnTile : MonoBehaviour {
         //Change the Color back when the mouse exits the GameObject
         GetComponent<Renderer>().material = beige_Mat;
     }
+
+    public void Highlight()
+    {
+        //Change the Color of the GameObject when the mouse hovers over it
+        GetComponent<Renderer>().material = beigeLight_Mat;
+    }
 }
