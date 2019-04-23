@@ -3,7 +3,7 @@
 Moonlight Sky Games - Interview Chess Demo
 
 
-* BASICS * 
+- BASICS
 -------------------------------------------------------------------------------------------
 - Run the "Builds/MLSG - Chess Demo" to start the application
 - Hit the "esc" key to close application
@@ -11,7 +11,7 @@ Moonlight Sky Games - Interview Chess Demo
 -------------------------------------------------------------------------------------------
 
 
-* RULES *
+- RULES
 -------------------------------------------------------------------------------------------
 - Units are moved by,
 	- Clicking a Unit
