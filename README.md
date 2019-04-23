@@ -3,14 +3,13 @@
 Moonlight Sky Games - Interview Chess Demo
 
 
+-------------------------------------------------------------------------------------------
 - BASICS
 -------------------------------------------------------------------------------------------
 - Run the "Builds/MLSG - Chess Demo" to start the application
 - Hit the "esc" key to close application
 - C# Source code files can be found under "MLSG-Chess-Demo\MLSG - Chess Demo\Assets\Scripts"
 -------------------------------------------------------------------------------------------
-
-
 - RULES
 -------------------------------------------------------------------------------------------
 - Units are moved by,
@@ -21,7 +20,8 @@ Moonlight Sky Games - Interview Chess Demo
 - Moving a unit of a different color on top of each other will destroy the defending unit
 -------------------------------------------------------------------------------------------
 
-
 Project by: 	Zachary Blouin
 
 Source Code: 	https://github.com/Cazac/MLSG-Chess-Demo
+
+-------------------------------------------------------------------------------------------
