@@ -1,4 +1,4 @@
-# MLSG-Chess-Demo
+# MLSG - Chess Demo
 
 Moonlight Sky Games - Interview Chess Demo
 
@@ -23,4 +23,5 @@ Moonlight Sky Games - Interview Chess Demo
 
 
 Project by: 	Zachary Blouin
+
 Source Code: 	https://github.com/Cazac/MLSG-Chess-Demo
